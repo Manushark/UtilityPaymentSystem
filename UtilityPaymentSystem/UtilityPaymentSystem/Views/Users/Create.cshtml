@@ -1,0 +1,24 @@
+﻿@model UtilityPaymentSystem.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h1>Crear Usuario</h1>
+
+<h4>Usuario</h4>
+<hr />
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="Name">Nombre</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Crear" class="btn btn-success" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

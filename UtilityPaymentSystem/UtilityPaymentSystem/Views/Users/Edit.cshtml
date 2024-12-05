@@ -1,0 +1,25 @@
+﻿@model UtilityPaymentSystem.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h1>Editar Usuario</h1>
+
+<h4>Usuario</h4>
+<hr />
+<form asp-action="Edit">
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group">
+        <label for="Name">Nombre</label>
+        <input type="text" class="form-control" asp-for="Name" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" asp-for="Email" required />
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

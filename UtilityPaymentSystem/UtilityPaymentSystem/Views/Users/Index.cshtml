@@ -1,0 +1,35 @@
+﻿@model IEnumerable<UtilityPaymentSystem.Domain.Entities.User>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>Lista de Usuarios</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Agregar Nuevo Usuario</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@user.UserId">Detalles</a>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@user.UserId">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@user.UserId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

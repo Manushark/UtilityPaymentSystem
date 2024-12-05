@@ -1,0 +1,29 @@
+﻿@model UtilityPaymentSystem.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Detalles de Usuario";
+}
+
+<h1>Detalles de Usuario</h1>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Email
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Index">Volver a la Lista</a>
+</div>
