@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityPaymentSystem.Application\UtilityPaymentSystem.Application.csproj" />
+    <ProjectReference Include="..\UtilityPaymentSystem.Domain\UtilityPaymentSystem.Domain.csproj" />
   </ItemGroup>
 
 </Project>

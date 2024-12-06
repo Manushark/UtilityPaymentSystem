@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UtilityPaymentSystem.Domain.Entities;
+using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
@@ -14,7 +16,8 @@ namespace UtilityPaymentSystem.Controllers
             new Bill { BillId = 2, UserId = 2, ServiceId = 2, Amount = 200.00m, DueDate = DateTime.Now.AddDays(-1), IsPaid = false },
             new Bill { BillId = 3, UserId = 1, ServiceId = 1, Amount = 150.00m, DueDate = DateTime.Now.AddDays(10), IsPaid = true }
         };
-
+        // Constructor para inyectar el contexto
+     
         // Acción para listar facturas con filtros
         public IActionResult Index(string filter = "all", int? userId = null)
         {
@@ -30,6 +33,7 @@ namespace UtilityPaymentSystem.Controllers
 
             return View(filteredBills.ToList());
         }
+    
 
         [HttpPost]
         public IActionResult Create(Bill newBill)

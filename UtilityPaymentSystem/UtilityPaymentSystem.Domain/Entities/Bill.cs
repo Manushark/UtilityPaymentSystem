@@ -14,5 +14,6 @@ namespace UtilityPaymentSystem.Domain.Entities
         public decimal Amount { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
+        public Service Service { get; set; }
     }
 }
