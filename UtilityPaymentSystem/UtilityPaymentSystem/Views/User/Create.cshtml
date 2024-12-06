@@ -1,0 +1,20 @@
+﻿@model UtilityPaymentSystem.Domain.Entities.User
+
+<h1>Crear Usuario</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+    </div>
+    <div class="mb-3">
+        <label for="PasswordHash" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="PasswordHash" name="PasswordHash" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+

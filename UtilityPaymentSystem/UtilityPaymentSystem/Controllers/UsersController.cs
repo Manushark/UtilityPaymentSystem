@@ -1,112 +1,87 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using UtilityPaymentSystem.Domain.Entities;
-using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
-    public class UsersController : Controller
+    public class UserController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public UsersController(AppDbContext context)
+        // Simulación de base de datos en memoria
+        private static List<User> Users = new List<User>
         {
-            _context = context;
+            new User { UserId = 1, Name = "Juan Pérez", Email = "juan@example.com", PasswordHash = "hashedpassword1" },
+            new User { UserId = 2, Name = "Ana López", Email = "ana@example.com", PasswordHash = "hashedpassword2" }
+        };
+
+        // Acción para listar usuarios
+        public IActionResult Index()
+        {
+            return View(Users);
         }
 
-        public async Task<IActionResult> Index()
+        // Acción para ver detalles de un usuario
+        public IActionResult Details(int id)
         {
-            return View(await _context.Users.ToListAsync());
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var user = Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null) return NotFound();
             return View(user);
         }
 
+        // Acción para mostrar el formulario de creación
         public IActionResult Create()
         {
             return View();
         }
 
+        // Acción para manejar el envío del formulario de creación
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(User user)
+        public IActionResult Create(User newUser)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            newUser.UserId = Users.Count > 0 ? Users.Max(u => u.UserId) + 1 : 1; // Generar un nuevo ID
+            Users.Add(newUser);
+            return RedirectToAction("Index");
+        }
+
+        // Acción para mostrar el formulario de edición
+        public IActionResult Edit(int id)
+        {
+            var user = Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null) return NotFound();
             return View(user);
         }
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
-
+        // Acción para manejar el envío del formulario de edición
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, User user)
+        public IActionResult Edit(User updatedUser)
         {
-            if (id != user.UserId)
-            {
-                return NotFound();
-            }
+            var user = Users.FirstOrDefault(u => u.UserId == updatedUser.UserId);
+            if (user == null) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Users.Any(e => e.UserId == id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+            user.Name = updatedUser.Name;
+            user.Email = updatedUser.Email;
+            user.PasswordHash = updatedUser.PasswordHash;
+
+            return RedirectToAction("Index");
+        }
+
+        // Acción para mostrar el formulario de eliminación
+        public IActionResult Delete(int id)
+        {
+            var user = Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null) return NotFound();
             return View(user);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        // Acción para manejar la confirmación de eliminación
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int UserId)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
+            var user = Users.FirstOrDefault(u => u.UserId == UserId);
+            if (user == null) return NotFound();
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            Users.Remove(user);
+            return RedirectToAction("Index");
         }
     }
 }
