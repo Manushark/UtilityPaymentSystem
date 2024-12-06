@@ -4,50 +4,116 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - UtilityPaymentSystem</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/UtilityPaymentSystem.styles.css" asp-append-version="true" />
+    <style>
+        /* Estilos personalizados */
+        body {
+            background: #f0f8ff; /* Fondo azul claro */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #4caf50, #2e7d32); /* Header degradado verde */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important; /* Texto blanco */
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover, .nav-link:hover {
+            color: #ffeb3b !important; /* Amarillo al pasar el cursor */
+        }
+
+        footer {
+            background: #4caf50; /* Footer sólido verde */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #ffeb3b;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Imagen de fondo del header */
+        .header-image {
+            background-image: url('https://via.placeholder.com/1200x300'); /* Cambia por la URL de tu imagen */
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Imagen de cabecera -->
+    <div class="header-image"></div>
+
+    <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UtilityPaymentSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://via.placeholder.com/40" alt="Logo" style="height: 40px; margin-right: 10px;" />
+                    UtilityPaymentSystem
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Index">pay</a>
+                            <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index">Pago</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Usuario</a>
+                            <a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Report" asp-action="Index">Reportes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index">Servicios</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Main Content -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+    <!-- Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - UtilityPaymentSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - UtilityPaymentSystem -
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

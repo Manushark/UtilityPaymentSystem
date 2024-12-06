@@ -1,0 +1,29 @@
+﻿@model List<UtilityPaymentSystem.Controllers.Report>
+
+<h1>Listado de Reportes</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha de Generación</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var report in Model)
+        {
+            <tr>
+                <td>@report.ReportId</td>
+                <td>@report.GeneratedDate.ToShortDateString()</td>
+                <td>@report.ReportData</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@report.ReportId">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Crear Nuevo Reporte</a>

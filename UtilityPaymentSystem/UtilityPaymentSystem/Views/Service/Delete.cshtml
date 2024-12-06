@@ -1,0 +1,13 @@
+﻿@model UtilityPaymentSystem.Controllers.Service
+
+<h1>Eliminar Servicio</h1>
+
+<p>¿Está seguro de que desea eliminar el siguiente servicio?</p>
+<p><strong>ID:</strong> @Model.ServiceId</p>
+<p><strong>Nombre:</strong> @Model.Name</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="ServiceId" value="@Model.ServiceId" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

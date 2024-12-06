@@ -1,0 +1,27 @@
+﻿@model UtilityPaymentSystem.Controllers.Bill
+
+<h1>Crear Factura</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="UserId" class="form-label">ID del Usuario</label>
+        <input type="number" class="form-control" id="UserId" name="UserId" required />
+    </div>
+    <div class="mb-3">
+        <label for="ServiceId" class="form-label">ID del Servicio</label>
+        <input type="number" class="form-control" id="ServiceId" name="ServiceId" required />
+    </div>
+    <div class="mb-3">
+        <label for="Amount" class="form-label">Monto</label>
+        <input type="number" class="form-control" id="Amount" name="Amount" step="0.01" required />
+    </div>
+    <div class="mb-3">
+        <label for="DueDate" class="form-label">Fecha de Vencimiento</label>
+        <input type="date" class="form-control" id="DueDate" name="DueDate" required />
+    </div>
+    <div class="mb-3">
+        <label for="IsPaid" class="form-label">Pagado</label>
+        <input type="checkbox" id="IsPaid" name="IsPaid" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

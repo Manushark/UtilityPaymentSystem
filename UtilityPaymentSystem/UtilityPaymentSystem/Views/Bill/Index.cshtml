@@ -1,0 +1,36 @@
+﻿@model List<UtilityPaymentSystem.Controllers.Bill>
+
+<h1>Listado de Facturas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Servicio</th>
+            <th>Monto</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Pagado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bill in Model)
+        {
+            <tr>
+                <td>@bill.BillId</td>
+                <td>@bill.UserId</td>
+                <td>@bill.ServiceId</td>
+                <td>@bill.Amount</td>
+                <td>@bill.DueDate.ToShortDateString()</td>
+                <td>@(bill.IsPaid ? "Sí" : "No")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@bill.BillId">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@bill.BillId">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Crear Nueva Factura</a>

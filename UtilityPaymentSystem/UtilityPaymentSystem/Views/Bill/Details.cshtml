@@ -1,0 +1,12 @@
+﻿@model UtilityPaymentSystem.Controllers.Bill
+
+<h1>Detalles de la Factura</h1>
+
+<p><strong>ID:</strong> @Model.BillId</p>
+<p><strong>Usuario:</strong> @Model.UserId</p>
+<p><strong>Servicio:</strong> @Model.ServiceId</p>
+<p><strong>Monto:</strong> @Model.Amount</p>
+<p><strong>Fecha de Vencimiento:</strong> @Model.DueDate.ToShortDateString()</p>
+<p><strong>Pagado:</strong> @(Model.IsPaid ? "Sí" : "No")</p>
+
+<a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>

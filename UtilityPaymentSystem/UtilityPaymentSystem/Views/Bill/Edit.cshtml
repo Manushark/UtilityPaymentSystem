@@ -1,0 +1,28 @@
+﻿@model UtilityPaymentSystem.Controllers.Bill
+
+<h1>Editar Factura</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="BillId" value="@Model.BillId" />
+    <div class="mb-3">
+        <label for="UserId" class="form-label">ID del Usuario</label>
+        <input type="number" class="form-control" id="UserId" name="UserId" value="@Model.UserId" required />
+    </div>
+    <div class="mb-3">
+        <label for="ServiceId" class="form-label">ID del Servicio</label>
+        <input type="number" class="form-control" id="ServiceId" name="ServiceId" value="@Model.ServiceId" required />
+    </div>
+    <div class="mb-3">
+        <label for="Amount" class="form-label">Monto</label>
+        <input type="number" class="form-control" id="Amount" name="Amount" step="0.01" value="@Model.Amount" required />
+    </div>
+    <div class="mb-3">
+        <label for="DueDate" class="form-label">Fecha de Vencimiento</label>
+        <input type="date" class="form-control" id="DueDate" name="DueDate" value="@Model.DueDate.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="mb-3">
+        <label for="IsPaid" class="form-label">Pagado</label>
+        <input type="checkbox" id="IsPaid" name="IsPaid" @(Model.IsPaid ? "checked" : "") />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

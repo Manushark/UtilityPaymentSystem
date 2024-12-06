@@ -1,0 +1,11 @@
+﻿@model UtilityPaymentSystem.Controllers.Report
+
+<h1>Crear Reporte</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="ReportData" class="form-label">Descripción del Reporte</label>
+        <textarea class="form-control" id="ReportData" name="ReportData" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Generar</button>
+</form>

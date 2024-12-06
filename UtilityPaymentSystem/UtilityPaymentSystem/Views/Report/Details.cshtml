@@ -1,0 +1,9 @@
+﻿@model UtilityPaymentSystem.Controllers.Report
+
+<h1>Detalles del Reporte</h1>
+
+<p><strong>ID:</strong> @Model.ReportId</p>
+<p><strong>Fecha de Generación:</strong> @Model.GeneratedDate.ToShortDateString()</p>
+<p><strong>Datos del Reporte:</strong> @Model.ReportData</p>
+
+<a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>
