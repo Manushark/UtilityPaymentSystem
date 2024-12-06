@@ -1,0 +1,7 @@
+﻿@model UtilityPaymentSystem.Controllers.Payment
+
+<h1>Detalles del Pago</h1>
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Nombre:</strong> @Model.Name</p>
+<p><strong>Monto:</strong> @Model.Amount.ToString("C")</p>
+<a href="/Payment/Index" class="btn btn-secondary">Volver a la Lista</a>

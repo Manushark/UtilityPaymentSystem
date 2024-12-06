@@ -15,10 +15,14 @@ namespace UtilityPaymentSystem.Infrastructure
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Report> Reports { get; set; }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            // Configurations can be added here if needed
+     
+
         }
+
     }
+
 }

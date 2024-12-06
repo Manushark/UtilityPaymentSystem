@@ -1,0 +1,27 @@
+﻿@model List<UtilityPaymentSystem.Controllers.Payment>
+
+<h1>Lista de Pagos</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td>@payment.Id</td>
+                <td>@payment.Name</td>
+                <td>@payment.Amount.ToString("C")</td>
+                <td>
+                    <a href="/Payment/Details/@payment.Id" class="btn btn-info">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Payment/Create" class="btn btn-primary">Crear Nuevo Pago</a>
