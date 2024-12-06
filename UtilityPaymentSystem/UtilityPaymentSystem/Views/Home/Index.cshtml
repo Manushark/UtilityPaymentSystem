@@ -1,8 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Bienvenido a UtilityPaymentSystem";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido al Sistema de Gestión de Pagos</h1>
-    <p>Usa el menú para navegar entre los servicios disponibles.</p>
+<div class="container text-center my-5">
+    <h1 class="display-4 text-primary mb-4">Bienvenido a UtilityPaymentSystem</h1>
+    <p class="lead mb-4">La plataforma perfecta para gestionar tus pagos de servicios públicos de manera fácil y eficiente.</p>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-primary">
+                <img class="card-img-top" src="https://www.salesforce.com/ca/blog/wp-content/uploads/sites/12/2023/10/Every-Task-a-Customer-Service-Rep-Must-Do-opengraph.png" alt="Servicios" />
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Servicios</h5>
+                    <p class="card-text">Gestiona todos tus servicios en un solo lugar, desde pagos hasta facturación.</p>
+                    <a href="/Service" class="btn btn-primary">Ver Servicios</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-success">
+                <img class="card-img-top" src="https://impulsapopular.com/wp-content/uploads/2021/08/4974-Beneficios-de-las-soluciones-de-pagos-y-recaudos-para-empresas-que-ofrece-el-Banco-Popular.jpg" alt="Pagos" />
+                <div class="card-body">
+                    <h5 class="card-title text-success">Pagos</h5>
+                    <p class="card-text">Realiza pagos de manera rápida y segura, con el historial siempre disponible.</p>
+                    <a href="/Payment" class="btn btn-success">Realizar Pago</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-warning">
+                <img class="card-img-top" src="https://www.itmplatform.com/lib/uploads/36978940_m.jpg" alt="Reportes" />
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Reportes</h5>
+                    <p class="card-text">Genera reportes detallados sobre tus pagos y servicios gestionados.</p>
+                    <a href="/Report" class="btn btn-warning">Ver Reportes</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
