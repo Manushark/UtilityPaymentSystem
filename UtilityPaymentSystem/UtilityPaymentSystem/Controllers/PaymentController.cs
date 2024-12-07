@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
     public class PaymentController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public PaymentController(AppDbContext context)
+        {
+            _context = context;
+        }
         // Simulación de base de datos en memoria
         private static List<Payment> Payments = new List<Payment>
         {
@@ -31,6 +38,32 @@ namespace UtilityPaymentSystem.Controllers
         {
             return View();
         }
+		// Acción para eliminar un pago
+		public IActionResult Delete(int id)
+		{
+			var payment = Payments.Find(p => p.Id == id);
+			if (payment == null) return NotFound();
+
+			Payments.Remove(payment);
+			return RedirectToAction("Index");
+		}
+        // Acción para buscar pagos
+        public IActionResult Search(string query, decimal? minAmount, decimal? maxAmount)
+        {
+            var results = Payments;
+
+            if (!string.IsNullOrEmpty(query))
+                results = results.FindAll(p => p.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+
+            if (minAmount.HasValue)
+                results = results.FindAll(p => p.Amount >= minAmount);
+
+            if (maxAmount.HasValue)
+                results = results.FindAll(p => p.Amount <= maxAmount);
+
+            return View("Index", results);
+        }
+
 
         // Acción para manejar el envío del formulario de creación
         [HttpPost]

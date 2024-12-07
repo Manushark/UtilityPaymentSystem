@@ -1,29 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using UtilityPaymentSystem.Domain.Entities;
+using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
     public class UserController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public UserController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         // Simulación de base de datos en memoria
         private static List<User> Users = new List<User>
         {
-            new User { UserId = 1, Name = "Juan Pérez", Email = "juan@example.com", PasswordHash = "hashedpassword1" },
-            new User { UserId = 2, Name = "Ana López", Email = "ana@example.com", PasswordHash = "hashedpassword2" }
+            new User { Id = 1, Name = "Juan Pérez", Email = "juan@example.com", PasswordHash = "hashedpassword1" },
+            new User { Id = 2, Name = "Ana López", Email = "ana@example.com", PasswordHash = "hashedpassword2" }
         };
+
 
         // Acción para listar usuarios
         public IActionResult Index()
         {
+            Users = _context.Users.ToList();
             return View(Users);
         }
 
         // Acción para ver detalles de un usuario
         public IActionResult Details(int id)
         {
-            var user = Users.FirstOrDefault(u => u.UserId == id);
+            var user = Users.FirstOrDefault(u => u.Id == id);
             if (user == null) return NotFound();
             return View(user);
         }
@@ -36,17 +47,27 @@ namespace UtilityPaymentSystem.Controllers
 
         // Acción para manejar el envío del formulario de creación
         [HttpPost]
-        public IActionResult Create(User newUser)
+        public async Task<ActionResult<User>> Create(User user)
         {
-            newUser.UserId = Users.Count > 0 ? Users.Max(u => u.UserId) + 1 : 1; // Generar un nuevo ID
-            Users.Add(newUser);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            
+
+
             return RedirectToAction("Index");
         }
+
+        //public IActionResult Create(User newUser)
+        //{
+        //    _context.Users.Add(newUser);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         // Acción para mostrar el formulario de edición
         public IActionResult Edit(int id)
         {
-            var user = Users.FirstOrDefault(u => u.UserId == id);
+            var user = Users.FirstOrDefault(u => u.Id == id);
             if (user == null) return NotFound();
             return View(user);
         }
@@ -55,7 +76,7 @@ namespace UtilityPaymentSystem.Controllers
         [HttpPost]
         public IActionResult Edit(User updatedUser)
         {
-            var user = Users.FirstOrDefault(u => u.UserId == updatedUser.UserId);
+            var user = Users.FirstOrDefault(u => u.Id == updatedUser.Id);
             if (user == null) return NotFound();
 
             user.Name = updatedUser.Name;
@@ -68,16 +89,16 @@ namespace UtilityPaymentSystem.Controllers
         // Acción para mostrar el formulario de eliminación
         public IActionResult Delete(int id)
         {
-            var user = Users.FirstOrDefault(u => u.UserId == id);
+            var user = Users.FirstOrDefault(u => u.Id == id);
             if (user == null) return NotFound();
             return View(user);
         }
 
         // Acción para manejar la confirmación de eliminación
         [HttpPost]
-        public IActionResult DeleteConfirmed(int UserId)
+        public IActionResult DeleteConfirmed(int Id)
         {
-            var user = Users.FirstOrDefault(u => u.UserId == UserId);
+            var user = Users.FirstOrDefault(u => u.Id == Id);
             if (user == null) return NotFound();
 
             Users.Remove(user);

@@ -1,20 +1,12 @@
 ﻿@model IEnumerable<UtilityPaymentSystem.Domain.Entities.Bill>
 
-<h1>Listado de Facturas</h1>
+@{
+    ViewData["Title"] = "Lista de Facturas";
+}
 
-<div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary">Agregar Nueva Factura</a>
-</div>
+<h1>@ViewData["Title"]</h1>
 
-<form method="get">
-    <label for="filter">Filtro:</label>
-    <select id="filter" name="filter">
-        <option value="all">Todas</option>
-        <option value="paid">Pagadas</option>
-        <option value="pending">Pendientes</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
+<a href="@Url.Action("Create")" class="btn btn-primary">Crear Nueva Factura</a>
 
 <table class="table">
     <thead>
@@ -23,30 +15,26 @@
             <th>Usuario</th>
             <th>Servicio</th>
             <th>Monto</th>
-            <th>Fecha Vencimiento</th>
-            <th>Estado</th>
+            <th>Fecha de Vencimiento</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var bill in Model)
         {
-            <tr class="@((!bill.IsPaid && bill.DueDate < DateTime.Now) ? "table-danger" : "")">
+            <tr>
                 <td>@bill.BillId</td>
                 <td>@bill.UserId</td>
                 <td>@bill.ServiceId</td>
                 <td>@bill.Amount</td>
-                <td>@bill.DueDate.ToString("dd/MM/yyyy")</td>
-                <td>@(bill.IsPaid ? "Pagada" : "Pendiente")</td>
+                <td>@bill.DueDate.ToShortDateString()</td>
                 <td>
-                    @if (!bill.IsPaid)
-                    {
-                        <a asp-action="MarkAsPaid" asp-route-id="@bill.BillId" class="btn btn-success">Marcar como Pagada</a>
-                    }
-                    <a asp-action="Details" asp-route-id="@bill.BillId" class="btn btn-info">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@bill.BillId" class="btn btn-danger">Eliminar</a>
+                    <a href="@Url.Action("Details", new { id = bill.BillId })" class="btn btn-info">Detalles</a>
+                    <a href="@Url.Action("Edit", new { id = bill.BillId })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Delete", new { id = bill.BillId })" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

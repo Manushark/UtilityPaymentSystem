@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using UtilityPaymentSystem.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ builder.Services.AddControllersWithViews(); // Cambiar a MVC
 
 // Add database context
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer("Server=MANU\\SQLEXPRESS;Database=UtilityPaymentSystemDB;Trusted_Connection=True;TrustServerCertificate=True;")
 );
 
 var app = builder.Build();

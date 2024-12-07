@@ -6,8 +6,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Fecha de Generación</th>
-            <th>Descripción</th>
+            <th>Fecha Generación</th>
+            <th>Datos del Reporte</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -16,10 +16,11 @@
         {
             <tr>
                 <td>@report.ReportId</td>
-                <td>@report.GeneratedDate.ToShortDateString()</td>
+                <td>@report.GeneratedDate.ToString("dd/MM/yyyy")</td>
                 <td>@report.ReportData</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@report.ReportId">Detalles</a>
+                    <a asp-action="Details" asp-route-id="@report.ReportId" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@report.ReportId" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         }
@@ -27,3 +28,4 @@
 </table>
 
 <a asp-action="Create" class="btn btn-primary">Crear Nuevo Reporte</a>
+

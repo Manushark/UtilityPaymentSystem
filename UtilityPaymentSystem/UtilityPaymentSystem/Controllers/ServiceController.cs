@@ -1,11 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using UtilityPaymentSystem.Domain.Entities;
+using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
+
     public class ServiceController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public ServiceController(AppDbContext context)
+        {
+            _context = context;
+        }
         // Simulación de base de datos en memoria
         private static List<Service> Services = new List<Service>
         {
@@ -17,6 +27,7 @@ namespace UtilityPaymentSystem.Controllers
         // Acción para listar servicios
         public IActionResult Index()
         {
+            Services = _context.Services.ToList();
             return View(Services);
         }
 
@@ -35,14 +46,23 @@ namespace UtilityPaymentSystem.Controllers
         }
 
         // Acción para manejar el envío del formulario de creación
-        [HttpPost]
-        public IActionResult Create(Service newService)
-        {
-            newService.ServiceId = Services.Count + 1; // Generar un nuevo ID
-            Services.Add(newService);
-            return RedirectToAction("Index");
-        }
+        //[HttpPost]
+        //public IActionResult Create(Service newService)
+        //{
 
+        //    _context.Services.Add(newService);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+        [HttpPost]
+        public async Task<ActionResult<Service>> Create(Service newService)
+        {
+            _context.Services.Add(newService);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+        }
         // Acción para mostrar el formulario de edición
         public IActionResult Edit(int id)
         {
@@ -82,12 +102,5 @@ namespace UtilityPaymentSystem.Controllers
         }
       
 
-    }
-
-    // Clase Service (Modelo)
-    public class Service
-    {
-        public int ServiceId { get; set; }
-        public string Name { get; set; }
     }
 }

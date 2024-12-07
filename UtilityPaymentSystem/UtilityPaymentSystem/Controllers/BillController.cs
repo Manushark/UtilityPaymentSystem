@@ -10,6 +10,12 @@ namespace UtilityPaymentSystem.Controllers
 {
     public class BillController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public BillController(AppDbContext context)
+        {
+            _context = context;
+        }
         private static List<Bill> Bills = new List<Bill>
         {
             new Bill { BillId = 1, UserId = 1, ServiceId = 1, Amount = 100.50m, DueDate = DateTime.Now.AddDays(3), IsPaid = false },

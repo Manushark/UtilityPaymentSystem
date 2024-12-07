@@ -25,7 +25,10 @@ namespace UtilityPaymentSystem.Infrastructure
                     .WithMany()
                     .HasForeignKey(b => b.ServiceId);
             }
-        }
+            
+        
 
     }
+
+}
 

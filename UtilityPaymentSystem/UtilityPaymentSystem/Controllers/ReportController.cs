@@ -2,11 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
 {
     public class ReportController : Controller
+
+
     {
+        private readonly AppDbContext _context;
+
+        public ReportController(AppDbContext context)
+        {
+            _context = context;
+        }
         // Simulación de base de datos en memoria
         private static List<Report> Reports = new List<Report>
         {
@@ -33,6 +42,15 @@ namespace UtilityPaymentSystem.Controllers
         {
             return View();
         }
+        // Acción para eliminar un reporte
+        public IActionResult Delete(int id)
+        {
+            var report = Reports.FirstOrDefault(r => r.ReportId == id);
+            if (report == null) return NotFound();
+            Reports.Remove(report);
+            return RedirectToAction("Index");
+        }
+
 
         // Acción para manejar el envío del formulario de creación
         [HttpPost]
