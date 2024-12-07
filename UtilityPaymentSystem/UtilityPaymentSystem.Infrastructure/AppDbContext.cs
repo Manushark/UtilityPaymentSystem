@@ -11,9 +11,9 @@ namespace UtilityPaymentSystem.Infrastructure
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<Bill> Bills { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Service> Service { get; set; }
+        public DbSet<Bill> Bill { get; set; }
+        public DbSet<Payment> Payment { get; set; }
         public DbSet<Report> Reports { get; set; }
         
     

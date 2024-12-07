@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using UtilityPaymentSystem.Domain.Entities;
 using UtilityPaymentSystem.Infrastructure;
 
 namespace UtilityPaymentSystem.Controllers
@@ -22,6 +24,7 @@ namespace UtilityPaymentSystem.Controllers
         // Acción para listar pagos
         public IActionResult Index()
         {
+            Payments = _context.Payment.ToList();
             return View(Payments);
         }
 
@@ -66,20 +69,14 @@ namespace UtilityPaymentSystem.Controllers
 
 
         // Acción para manejar el envío del formulario de creación
+   
         [HttpPost]
-        public IActionResult Create(Payment newPayment)
+        public async Task<ActionResult<Payment>> Create(Payment payment)
         {
-            newPayment.Id = Payments.Count + 1; // Generar un nuevo ID
-            Payments.Add(newPayment);
+            _context.Payment.Add(payment);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
-    }
-
-    // Clase Payment (Modelo)
-    public class Payment
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Amount { get; set; }
     }
 }

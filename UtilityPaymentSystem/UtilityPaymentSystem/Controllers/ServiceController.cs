@@ -27,7 +27,7 @@ namespace UtilityPaymentSystem.Controllers
         // Acción para listar servicios
         public IActionResult Index()
         {
-            Services = _context.Services.ToList();
+            Services = _context.Service.ToList();
             return View(Services);
         }
 
@@ -58,7 +58,7 @@ namespace UtilityPaymentSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<Service>> Create(Service newService)
         {
-            _context.Services.Add(newService);
+            _context.Service.Add(newService);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
 

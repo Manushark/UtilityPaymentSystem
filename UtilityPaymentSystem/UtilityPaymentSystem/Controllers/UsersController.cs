@@ -98,11 +98,30 @@ namespace UtilityPaymentSystem.Controllers
         [HttpPost]
         public IActionResult DeleteConfirmed(int Id)
         {
-            var user = Users.FirstOrDefault(u => u.Id == Id);
-            if (user == null) return NotFound();
+            var user = _context.Users.Find(Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-            Users.Remove(user);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

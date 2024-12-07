@@ -19,13 +19,13 @@ namespace UtilityPaymentSystem.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bill>>> GetBills()
         {
-            return await _context.Bills.ToListAsync();
+            return await _context.Bill.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Bill>> GetBill(int id)
         {
-            var bill = await _context.Bills.FindAsync(id);
+            var bill = await _context.Bill.FindAsync(id);
             if (bill == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace UtilityPaymentSystem.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Bill>> PostBill(Bill bill)
         {
-            _context.Bills.Add(bill);
+            _context.Bill.Add(bill);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBill), new { id = bill.BillId }, bill);
@@ -75,13 +75,13 @@ namespace UtilityPaymentSystem.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBill(int id)
         {
-            var bill = await _context.Bills.FindAsync(id);
+            var bill = await _context.Bill.FindAsync(id);
             if (bill == null)
             {
                 return NotFound();
             }
 
-            _context.Bills.Remove(bill);
+            _context.Bill.Remove(bill);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -89,7 +89,7 @@ namespace UtilityPaymentSystem.Api.Controllers
 
         private bool BillExists(int id)
         {
-            return _context.Bills.Any(e => e.BillId == id);
+            return _context.Bill.Any(e => e.BillId == id);
         }
     }
 }

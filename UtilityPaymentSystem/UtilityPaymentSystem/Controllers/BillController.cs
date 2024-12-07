@@ -27,6 +27,7 @@ namespace UtilityPaymentSystem.Controllers
         // Acción para listar facturas con filtros
         public IActionResult Index(string filter = "all", int? userId = null)
         {
+            Bills = _context.Bill.ToList();
             var filteredBills = Bills.AsQueryable();
 
             if (filter == "paid")
@@ -39,15 +40,24 @@ namespace UtilityPaymentSystem.Controllers
 
             return View(filteredBills.ToList());
         }
-    
 
         [HttpPost]
-        public IActionResult Create(Bill newBill)
+        public async Task<ActionResult<Bill>> Create(Bill bill)
         {
-            newBill.BillId = Bills.Count + 1;
-            Bills.Add(newBill);
+            _context.Bill.Add(bill);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+
         }
+      
+
+        //[HttpPost]
+        //public IActionResult Create(Bill newBill)
+        //{
+        //    newBill.BillId = Bills.Count + 1;
+        //    Bills.Add(newBill);
+        //    return RedirectToAction("Index");
+        //}
 
         // Acción para crear nueva factura
         public IActionResult Create()
@@ -89,6 +99,29 @@ namespace UtilityPaymentSystem.Controllers
             if (bill == null) return NotFound();
 
             bill.IsPaid = true;
+            if (id != bill.BillId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(bill).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BillExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -111,6 +144,11 @@ namespace UtilityPaymentSystem.Controllers
         {
             var upcomingBills = Bills.Where(b => !b.IsPaid && b.DueDate <= DateTime.Now.AddDays(7));
             return View(upcomingBills.ToList());
+        }
+
+        private bool BillExists(int id)
+        {
+            return _context.Bill.Any(e => e.BillId == id);
         }
     }
 }
