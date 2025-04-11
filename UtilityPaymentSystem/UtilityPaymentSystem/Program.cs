@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews(); // Cambiar a MVC
 
 // Add database context
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("Server=MANU\\SQLEXPRESS;Database=UtilityPaymentSystemDB;Trusted_Connection=True;TrustServerCertificate=True;")
+    options.UseSqlServer("Server=MANU\\SQLEXPRESS;Database=UtilityPaymentSystemDb;Trusted_Connection=True;TrustServerCertificate=True;")
 );
 
 var app = builder.Build();
